@@ -1,23 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
+import React, {Component,useEffect, useState}from 'react'
+
 
 function App() {
-  return (
+ 
+  useEffect(() => {
+    fetch("https://https://terriblytinytales.com/testapi?rollnumber=123").then((result)=>{
+      result.json().then((resp)=>{
+        console.log("result")
+      })
+      
+    })
+  }, [])
+  
+  const [data,setdata]=useState(null)
+  const [print,setPrint]=useState(false)
+  function getData(val){
+    setdata(val.target.value)
+    setPrint(false)
+    //console.log(val.target.value)
+  }
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+      
+     <input type="text" onChange={getData}/>
+
+     <button onClick={()=>setPrint(true)}>Submit </button>
+       {
+        print?
+        
+        <h1>{data.split(" ")}</h1>
+        :null
+      }
     </div>
   );
 }
